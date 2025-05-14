@@ -1,4 +1,4 @@
-package ivan.solscanbot.dto.external;
+package ivan.solscanbot.dto.external.activity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;

@@ -1,7 +1,7 @@
 package ivan.solscanbot.mapper;
 
 import ivan.solscanbot.config.MapperConfig;
-import ivan.solscanbot.dto.external.SingleTokenPortfolioResponseDto;
+import ivan.solscanbot.dto.external.portfolio.SingleTokenPortfolioResponseDto;
 import ivan.solscanbot.dto.internal.Token;
 import org.mapstruct.Mapper;
 

@@ -1,0 +1,133 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: ivan
+      changes:
+        - createTable:
+            tableName: tokens
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: token_symbol
+                  type: VARCHAR(255)
+              - column:
+                  name: token_address
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: is_deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+
+  - changeSet:
+      id: 2
+      author: ivan
+      changes:
+        - createTable:
+            tableName: monitored_addresses
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: address
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: chat_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+
+  - changeSet:
+      id: 3
+      author: ivan
+      changes:
+        - createTable:
+            tableName: balance_activities
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: token_address
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: token_name
+                  type: VARCHAR(255)
+              - column:
+                  name: token_symbol
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: value_in_usd
+                  type: JAVA.MATH.BIGDECIMAL
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: JAVA.MATH.BIGDECIMAL
+                  constraints:
+                    nullable: false
+              - column:
+                  name: time
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_balance_activity_address
+                    references: monitored_addresses(id)
+              - column:
+                  name: is_deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+
+  - changeSet:
+      id: 4
+      author: ivan
+      changes:
+        - createTable:
+            tableName: address_token
+            columns:
+              - column:
+                  name: address_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_address_token_address
+                    references: monitored_addresses(id)
+              - column:
+                  name: token_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_address_token_token
+                    references: tokens(id)

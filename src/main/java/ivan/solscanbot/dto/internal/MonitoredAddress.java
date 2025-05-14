@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.Data;
@@ -15,13 +16,14 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.annotations.Where;
 
-@Entity
 @Data
+@Entity
 @NoArgsConstructor
-@SQLDelete(sql = "UPDATE roles SET is_deleted = true WHERE id = ?")
-@SQLRestriction("is_deleted = false")
+@SQLDelete(sql = "UPDATE monitored_addresses SET is_deleted = true WHERE id = ?")
+@Where(clause = "is_deleted = false")
+@Table(name = "monitored_addresses")
 public class MonitoredAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
