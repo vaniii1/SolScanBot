@@ -1,4 +1,4 @@
-package ivan.solscanbot.dto.external;
+package ivan.solscanbot.dto.external.portfolio;
 
 import java.util.Set;
 import lombok.Data;

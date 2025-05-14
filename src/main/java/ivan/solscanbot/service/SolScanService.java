@@ -1,8 +1,10 @@
 package ivan.solscanbot.service;
 
-import ivan.solscanbot.dto.external.SingleBalanceActivityResponseDto;
-import ivan.solscanbot.dto.external.SingleTokenPortfolioResponseDto;
-import ivan.solscanbot.dto.external.TokenMetaResponseDto;
+import ivan.solscanbot.dto.external.activity.SingleBalanceActivityResponseDto;
+import ivan.solscanbot.dto.external.meta.TokenMetaResponseDto;
+import ivan.solscanbot.dto.external.portfolio.SingleTokenPortfolioResponseDto;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public interface SolScanService {
@@ -10,5 +12,9 @@ public interface SolScanService {
 
     Set<SingleBalanceActivityResponseDto> getNewBalanceActivities(String address);
 
-    TokenMetaResponseDto getTokenMetaFromAddress(String address);
+    Map<String, TokenMetaResponseDto> getMetaMapFromAddresses(List<String> addresses);
+
+    TokenMetaResponseDto getTokenMeta(String address);
+
+    boolean newTokenTransfer(String tokenAddress);
 }
