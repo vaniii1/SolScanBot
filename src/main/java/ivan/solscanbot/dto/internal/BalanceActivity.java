@@ -29,23 +29,22 @@ public class BalanceActivity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, name = "token_address")
-    private String tokenAddress;
-    @Column(name = "token_name")
-    private String tokenName;
-    @Column(nullable = false, name = "token_symbol")
-    private String tokenSymbol;
     @Column(nullable = false, name = "value_in_usd")
     private BigDecimal valueInUsd;
     @Column(nullable = false)
     private BigDecimal amount;
-    @Column(nullable = false)
-    private Date time;
+    @ManyToOne
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @JoinColumn(nullable = false, name = "token_id")
+    private Token token;
     @ManyToOne
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JoinColumn(nullable = false, name = "address_id")
     private MonitoredAddress monitoredAddress;
+    @Column(nullable = false)
+    private Date time;
     @Column(nullable = false, name = "is_deleted")
     private boolean isDeleted = false;
 }

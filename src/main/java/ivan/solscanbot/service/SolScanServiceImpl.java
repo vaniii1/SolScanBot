@@ -22,9 +22,11 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SolScanServiceImpl implements SolScanService {
@@ -67,7 +69,7 @@ public class SolScanServiceImpl implements SolScanService {
     @Override
     public Set<SingleBalanceActivityResponseDto> getNewBalanceActivities(String address) {
         HttpClient httpClient = HttpClient.newHttpClient();
-        long fromTime = Instant.now().getEpochSecond() - 300;
+        long fromTime = Instant.now().getEpochSecond() - 60;
         String url = SOL_SCAN_ACTIVITIES_URL + "?address=" + address
                 + "&from_time=" + fromTime;
         HttpRequest httpRequest = HttpRequest.newBuilder()
@@ -88,6 +90,7 @@ public class SolScanServiceImpl implements SolScanService {
     }
 
     @Override
+
     public Map<String, TokenMetaResponseDto> getMetaMapFromAddresses(List<String> tokenAddresses) {
         String apiUrl = SOL_SCAN_TOKEN_MULTI_URL + "?address[]="
                 + String.join("&address[]=", tokenAddresses);
@@ -97,6 +100,7 @@ public class SolScanServiceImpl implements SolScanService {
                 .header("accept", "application/json")
                 .header("token", solScanKey)
                 .build();
+        log.info("solscan get batch meta tokens request");
         try {
             HttpResponse<String> response = client.send(
                     request, HttpResponse.BodyHandlers.ofString());

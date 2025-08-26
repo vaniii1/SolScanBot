@@ -47,7 +47,7 @@ public class SolanaAddressVerifierImpl implements SolanaAddressVerifier {
         if (!addressRepository.existsByAddressAndChatId(address, chatId)) {
             throw new AddressNotMonitoredException(
                     "You need to add this address to monitored address first "
-                            + "'/add address1 address2' ...'. Address: " + address);
+                            + "/add <address1> <address2..> ...\nAddress: " + address);
         }
     }
 

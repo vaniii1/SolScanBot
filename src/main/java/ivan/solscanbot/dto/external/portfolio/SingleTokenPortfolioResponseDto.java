@@ -6,10 +6,12 @@ import lombok.Data;
 
 @Data
 public class SingleTokenPortfolioResponseDto {
+    @JsonProperty("token_name")
+    private String name;
     @JsonProperty("token_symbol")
-    private String tokenSymbol;
+    private String symbol;
     @JsonProperty("token_address")
-    private String tokenAddress;
+    private String address;
     @JsonProperty("balance")
     private String tokenBalance;
     @JsonProperty("value")
