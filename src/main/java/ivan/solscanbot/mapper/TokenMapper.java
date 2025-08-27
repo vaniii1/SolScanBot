@@ -1,11 +1,14 @@
 package ivan.solscanbot.mapper;
 
 import ivan.solscanbot.config.MapperConfig;
+import ivan.solscanbot.dto.external.meta.TokenMetaResponseDto;
 import ivan.solscanbot.dto.external.portfolio.SingleTokenPortfolioResponseDto;
 import ivan.solscanbot.dto.internal.Token;
 import org.mapstruct.Mapper;
 
 @Mapper(config = MapperConfig.class)
 public interface TokenMapper {
-    Token toModel(SingleTokenPortfolioResponseDto dto);
+    Token toModelFromPortfolioDto(SingleTokenPortfolioResponseDto dto);
+
+    Token toModelFromMetaDto(TokenMetaResponseDto dto);
 }

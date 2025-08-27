@@ -116,12 +116,12 @@ public class TelegramServiceImpl implements TelegramService {
         AtomicInteger count = new AtomicInteger(1);
         return solanaAddress.getTokens().stream()
                 .map(token -> {
-                    String tokenUrl = SOLSCAN_TOKEN_URL + token.getTokenAddress() + "#holders";
+                    String tokenUrl = SOLSCAN_TOKEN_URL + token.getAddress() + "#holders";
                     return String.format(
                             "%d. %s: [%s](%s)",
                             count.getAndIncrement(),
-                            token.getTokenSymbol(),
-                            shortenAddress(token.getTokenAddress()),
+                            token.getSymbol(),
+                            shortenAddress(token.getAddress()),
                             tokenUrl
                     );
                 })
@@ -155,8 +155,8 @@ public class TelegramServiceImpl implements TelegramService {
     private Set<Token> mapAndSaveTokensFromSolscan(
             Set<SingleTokenPortfolioResponseDto> tokensFromSolScan) {
         return tokensFromSolScan.stream()
-                .map(tokenMapper::toModel)
-                .map(t -> tokenRepository.findByTokenAddress(t.getTokenAddress())
+                .map(tokenMapper::toModelFromPortfolioDto)
+                .map(t -> tokenRepository.findByAddress(t.getAddress())
                         .orElseGet(() -> tokenRepository.save(t)))
                 .collect(Collectors.toSet());
     }
@@ -165,7 +165,7 @@ public class TelegramServiceImpl implements TelegramService {
             String solanaAddress) {
         return solScanService.getTokensByAddress(solanaAddress)
                 .stream()
-                .filter(tok -> tok.getTokenSymbol() != null)
+                .filter(tok -> tok.getSymbol() != null)
                 .filter(tok -> tok.getTokenValue().compareTo(BigDecimal.TEN) > 0)
                 .sorted(Comparator.comparing(SingleTokenPortfolioResponseDto::getTokenValue)
                         .reversed())

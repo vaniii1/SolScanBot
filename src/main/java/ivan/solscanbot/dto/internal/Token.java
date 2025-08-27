@@ -21,10 +21,10 @@ public class Token {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "token_symbol")
-    private String tokenSymbol;
-    @Column(unique = true, nullable = false, name = "token_address")
-    private String tokenAddress;
+    private String name;
+    private String symbol;
+    @Column(unique = true)
+    private String address;
     @Column(name = "is_deleted")
     private boolean isDeleted = false;
 }
